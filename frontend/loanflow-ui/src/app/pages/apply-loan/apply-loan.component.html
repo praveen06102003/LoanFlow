@@ -1,0 +1,43 @@
+<div class="apply-container">
+  <div class="apply-card">
+    <div class="form-header">
+      <span class="eyebrow">LOANFLOW CUSTOMER PORTAL</span>
+      <h1>Apply for a Loan</h1>
+      <p>Tell us about your financial requirements.</p>
+    </div>
+
+    <form (ngSubmit)="submitApplication()">
+      <label for="amount">Loan Amount (₹)</label>
+      <input
+        id="amount"
+        type="number"
+        name="loanAmount"
+        [(ngModel)]="loanAmount"
+        placeholder="Enter loan amount"
+        min="1"
+        required
+      />
+
+      <label for="purpose">Loan Purpose</label>
+      <textarea
+        id="purpose"
+        name="purpose"
+        [(ngModel)]="purpose"
+        placeholder="Explain why you need this loan"
+        rows="4"
+        required
+      ></textarea>
+
+      <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+      <button type="submit" [disabled]="loading">
+        {{ loading ? 'Submitting...' : 'Submit Application →' }}
+      </button>
+    </form>
+
+    <button type="button" class="back-button" (click)="goToDashboard()">
+      ← Back to Dashboard
+    </button>
+  </div>
+</div>

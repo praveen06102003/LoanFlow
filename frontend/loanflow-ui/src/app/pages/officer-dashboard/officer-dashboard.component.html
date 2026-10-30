@@ -1,0 +1,261 @@
+
+<div class="officer-layout">
+
+  <!-- Sidebar -->
+  <aside class="officer-sidebar">
+
+    <div class="brand">
+      <div class="brand-icon">L</div>
+      <span>LoanFlow</span>
+    </div>
+
+    <div class="menu-label">MAIN MENU</div>
+
+    <nav class="nav-menu">
+
+      <a class="nav-item"
+         routerLink="/officer-dashboard"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }">
+        <span>▦</span> Dashboard
+      </a>
+
+      <!-- <a class="nav-item"
+         href="#applications">
+        <span>▤</span> Applications
+      </a> -->
+
+      <a class="nav-item"
+         routerLink="/my-profile"
+         routerLinkActive="active">
+        <span>♙</span> My Profile
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <div class="help-card">
+        <div class="help-icon">?</div>
+        <strong>Need help?</strong>
+        <p>Manage and review customer loan requests.</p>
+      </div>
+
+      <!-- Officer Profile -->
+      <div class="officer-profile">
+
+        <div class="avatar">{{ officerInitials }}</div>
+
+        <div class="profile-info">
+          <strong>{{ officerName || 'Loan Officer' }}</strong>
+          <span>Loan Officer Account</span>
+        </div>
+
+        <div class="profile-menu">
+
+  <button
+    type="button"
+    class="menu-button"
+    (click)="showLogout = !showLogout">
+    ⋯
+  </button>
+
+  <div class="dropdown" *ngIf="showLogout">
+    <button class="logout-button" (click)="logout()">
+      <span>↪</span> Logout
+    </button>
+  </div>
+
+</div>
+
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="officer-main">
+
+    <div class="officer-page">
+
+      <header class="page-header">
+        <div>
+          <span class="eyebrow">LOANFLOW ADMINISTRATION</span>
+          <h1>Loan Applications</h1>
+          <p>Review and manage customer loan requests.</p>
+        </div>
+
+        <button class="refresh" (click)="refreshLoans()">
+          ↻ Refresh
+        </button>
+      </header>
+
+      <!-- Statistics -->
+      <section class="stats">
+
+        <div class="stat-card">
+          <span>Total Applications</span>
+          <h2>{{ totalApplications }}</h2>
+        </div>
+
+        <div class="stat-card pending">
+          <span>Pending Review</span>
+          <h2>{{ pendingApplications }}</h2>
+        </div>
+
+        <div class="stat-card approved">
+          <span>Approved</span>
+          <h2>{{ approvedApplications }}</h2>
+        </div>
+
+        <div class="stat-card rejected">
+          <span>Rejected</span>
+          <h2>{{ rejectedApplications }}</h2>
+        </div>
+
+      </section>
+
+      <!-- Applications -->
+      <section class="applications-card" id="applications">
+
+        <div class="filter-header">
+          <div>
+            <h3>All Applications</h3>
+            <p>Review customer submissions and make decisions.</p>
+          </div>
+
+          <select
+            [ngModel]="selectedStatus"
+            (ngModelChange)="onStatusChange($event)">
+
+            <option value="ALL">All Applications</option>
+            <option value="PENDING_REVIEW">Pending Review</option>
+            <option value="APPROVED">Approved</option>
+            <option value="REJECTED">Rejected</option>
+
+          </select>
+        </div>
+
+        <p *ngIf="loading">Loading applications...</p>
+        <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+        <div class="table-container" *ngIf="!loading && !errorMessage">
+
+          <table>
+            <thead>
+              <tr>
+                <th>APPLICATION</th>
+                <th>CUSTOMER ID</th>
+                <th>PURPOSE</th>
+                <th>AMOUNT</th>
+                <th>SUBMITTED</th>
+                <th>STATUS</th>
+                <th>ACTION</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <tr *ngFor="let loan of filteredLoans">
+
+                <td class="loan-id">LN-{{ loan.id }}</td>
+                <td>{{ loan.customer_id }}</td>
+                <td>{{ loan.purpose }}</td>
+                <td>₹{{ formatAmount(loan.loan_amount) }}</td>
+                <td>{{ loan.created_at | date:'dd MMM yyyy' }}</td>
+
+                <td>
+                  <span class="status" [ngClass]="loan.status">
+                    {{ loan.status.replace('_', ' ') }}
+                  </span>
+                </td>
+
+                <td>
+                  <button class="review" (click)="openLoan(loan)">
+                    Review
+                  </button>
+                </td>
+
+              </tr>
+
+              <tr *ngIf="filteredLoans.length === 0">
+                <td colspan="7" class="empty">
+                  No applications found.
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+      </section>
+
+      <!-- Application Review Modal -->
+      <div class="modal-backdrop" *ngIf="selectedLoan">
+
+        <div class="modal">
+
+          <button class="close" (click)="closeLoan()">×</button>
+
+          <span class="eyebrow">APPLICATION REVIEW</span>
+          <h2>LN-{{ selectedLoan.id }}</h2>
+
+          <div class="detail">
+            <span>Customer ID</span>
+            <strong>{{ selectedLoan.customer_id }}</strong>
+          </div>
+
+          <div class="detail">
+            <span>Loan Amount</span>
+            <strong>₹{{ formatAmount(selectedLoan.loan_amount) }}</strong>
+          </div>
+
+          <div class="detail">
+            <span>Purpose</span>
+            <strong>{{ selectedLoan.purpose }}</strong>
+          </div>
+
+          <div class="detail">
+            <span>Current Status</span>
+            <strong>{{ selectedLoan.status }}</strong>
+          </div>
+
+          <div *ngIf="selectedLoan.status === 'PENDING_REVIEW'">
+
+            <label>Decision / Rejection Reason</label>
+
+            <textarea
+              [(ngModel)]="decisionReason"
+              placeholder="Enter reason for rejection (required for rejection)"
+              rows="3">
+            </textarea>
+
+            <div class="actions">
+
+              <button
+                class="approve"
+                [disabled]="processing"
+                (click)="decideLoan('APPROVED')">
+                Approve
+              </button>
+
+              <button
+                class="reject"
+                [disabled]="processing"
+                (click)="decideLoan('REJECTED')">
+                Reject
+              </button>
+
+            </div>
+          </div>
+
+          <p *ngIf="selectedLoan.status !== 'PENDING_REVIEW'">
+            This application has already been decided.
+          </p>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>

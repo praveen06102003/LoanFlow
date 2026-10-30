@@ -1,0 +1,83 @@
+.apply-container {
+  min-height: 100vh;
+  background: #f5f8ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.apply-card {
+  background: white;
+  width: 100%;
+  max-width: 560px;
+  padding: 42px;
+  border-radius: 18px;
+  box-shadow: 0 12px 40px rgba(30, 70, 130, 0.08);
+}
+
+.eyebrow {
+  color: #2875e8;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+h1 {
+  color: #172b4d;
+  margin-bottom: 8px;
+}
+
+.form-header p {
+  color: #718096;
+  margin-bottom: 32px;
+}
+
+label {
+  display: block;
+  margin: 20px 0 9px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #344563;
+}
+
+input, textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px;
+  border: 1px solid #dce4f0;
+  border-radius: 9px;
+  font: inherit;
+  outline: none;
+}
+
+input:focus, textarea:focus {
+  border-color: #2875e8;
+  box-shadow: 0 0 0 3px #2875e81a;
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 24px;
+  border: none;
+  border-radius: 9px;
+  background: #2468d8;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.back-button {
+  background: transparent;
+  color: #2468d8;
+  margin-top: 10px;
+}
+
+.success { color: #16834a; }
+.error { color: #d13c45; }

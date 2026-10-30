@@ -1,0 +1,138 @@
+
+.profile-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  padding: 40px;
+  font-family: Arial, sans-serif;
+}
+
+.profile-header {
+  margin-bottom: 30px;
+}
+
+.profile-header h2 {
+  color: #172554;
+  margin: 20px 0 5px;
+}
+
+.profile-header p {
+  color: #64748b;
+}
+
+.back-button {
+  border: none;
+  background: transparent;
+  color: #2563eb;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.profile-card {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  padding: 35px;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #dbeafe;
+  color: #1d4ed8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0 auto 15px;
+}
+
+.profile-card h3 {
+  color: #172554;
+  margin-bottom: 10px;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 12px;
+}
+
+.form-section {
+  margin-top: 30px;
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #dbe2ea;
+  border-radius: 7px;
+  outline: none;
+  font-size: 14px;
+}
+
+.form-group input:focus {
+  border-color: #2563eb;
+}
+
+.form-group input:disabled {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.form-group small {
+  color: #94a3b8;
+}
+
+.save-button {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 7px;
+  background: #2563eb;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.save-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.success-message {
+  color: #15803d;
+  font-size: 14px;
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 14px;
+}
+
+.message {
+  text-align: center;
+  color: #64748b;
+}

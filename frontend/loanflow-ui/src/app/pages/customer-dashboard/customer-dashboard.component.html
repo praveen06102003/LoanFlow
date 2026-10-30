@@ -1,0 +1,201 @@
+<div class="dashboard-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">L</div>
+      <span>LoanFlow</span>
+    </div>
+
+    <div class="menu-label">MAIN MENU</div>
+
+<nav class="nav-menu">
+
+  <a class="nav-item"
+     routerLink="/customer-dashboard"
+     routerLinkActive="active"
+     [routerLinkActiveOptions]="{exact: true}">
+    <span>▦</span> Dashboard
+  </a>
+
+  <a class="nav-item" routerLink="/apply-loan"
+     routerLinkActive="active">
+    <span>＋</span> Apply for Loan
+  </a>
+
+  <a class="nav-item" routerLink="/my-applications"
+     routerLinkActive="active">
+    <span>▤</span> My Applications
+  </a>
+
+  <a class="nav-item" routerLink="/my-profile"
+     routerLinkActive="active">
+    <span>◉</span> My Profile
+  </a>
+
+</nav>
+    <div class="sidebar-bottom">
+      <div class="help-card">
+        <div class="help-icon">?</div>
+        <strong>Need help?</strong>
+        <p>Our team is here to assist you.</p>
+        <a>Contact support →</a>
+      </div>
+
+<div class="profile">
+  <div class="avatar">{{ customerInitials }}</div>
+
+  <div class="profile-info">
+    <strong>{{ customerName }}</strong>
+    <span>Customer Account</span>
+  </div>
+
+<div class="profile-menu">
+
+  <button
+    type="button"
+    class="menu-button"
+    (click)="showLogout = !showLogout">
+    ⋯
+  </button>
+
+  <div class="dropdown" *ngIf="showLogout">
+    <button class="logout-button" (click)="logout()">
+      <span>↪</span> Logout
+    </button>
+  </div>
+
+</div>
+</div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+<header class="topbar">
+  <div>
+    <span class="breadcrumb">Pages / Dashboard</span>
+    <h2>Dashboard</h2>
+  </div>
+
+
+<div class="topbar-right">
+
+  <div class="avatar-menu">
+
+    <button
+      type="button"
+      class="avatar clickable-avatar"
+      (click)="showProfileMenu = !showProfileMenu">
+      {{ customerInitials }}
+    </button>
+
+    <div class="profile-dropdown" *ngIf="showProfileMenu">
+      <button
+        type="button"
+        (click)="router.navigate(['/my-profile'])">
+        <span>♙</span> My Profile
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+</header>
+
+    <section class="welcome-banner">
+      <div class="welcome-content">
+        <span class="welcome-tag">CUSTOMER PORTAL</span>
+        <h1>Welcome back, {{ customerName }}! 👋</h1>
+        <p>Manage your loan applications and keep track of your financial journey.</p>
+        <button class="primary-button" routerLink="/apply-loan">
+  + Apply for a Loan
+</button>
+      </div>
+
+      <div class="banner-decoration">
+        <div class="circle circle-one"></div>
+        <div class="circle circle-two"></div>
+        <div class="banner-card">
+          <span>LOANFLOW</span>
+          <strong>Your financial goals,</strong>
+          <strong>one step closer.</strong>
+          <div class="banner-line"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="section">
+      <div class="section-heading">
+        <div>
+          <h3>Application Overview</h3>
+          <p>Here's a summary of your loan activity.</p>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card" *ngFor="let stat of stats">
+          <div class="stat-top">
+            <span>{{ stat.title }}</span>
+            <div class="stat-icon" [ngClass]="stat.color">
+              {{ stat.icon === 'file' ? '▤' :
+              stat.icon === 'clock' ? '◷' :
+              stat.icon === 'check' ? '✓' : '×' }}
+            </div>
+          </div>
+          <h2>{{ stat.value }}</h2>
+          <span class="stat-caption">Your application records</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Applications -->
+    <section class="section applications-section">
+      <div class="section-heading">
+        <div>
+          <h3>Recent Applications</h3>
+          <p>Track the progress of your loan applications.</p>
+        </div>
+        <!-- <button class="secondary-button">View all applications →</button> -->
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>APPLICATION ID</th>
+              <th>LOAN PURPOSE</th>
+              <th>LOAN AMOUNT</th>
+              <th>SUBMITTED ON</th>
+              <th>STATUS</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let loan of loans">
+              <td class="loan-id">LN-{{ loan.id }}</td>
+              <td>{{ loan.purpose }}</td>
+              <td class="amount">₹{{ formatAmount(loan.loan_amount) }}</td>
+              <td>{{ loan.created_at | date:'dd MMM yyyy' }}</td>
+              <td>
+                <span class="status" [ngClass]="loan.status">
+                  <span class="status-dot"></span>
+                  {{ loan.status.replace('_', ' ') }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>
+      © 2026 LoanFlow. All rights reserved.
+      <span>Secure · Simple · Transparent</span>
+    </footer>
+
+  </main>
+</div>

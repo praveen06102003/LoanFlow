@@ -1,0 +1,72 @@
+<div class="applications-page">
+
+  <header class="page-header">
+    <div>
+      <span class="eyebrow">CUSTOMER PORTAL</span>
+      <h1>My Applications</h1>
+      <p>Track and manage your loan applications.</p>
+    </div>
+
+    <button routerLink="/apply-loan">+ Apply for Loan</button>
+  </header>
+
+  <section class="filter-section">
+    <div>
+      <h3>Application History</h3>
+      <p>{{ filteredLoans.length }} applications found</p>
+    </div>
+
+    <select [(ngModel)]="selectedStatus">
+      <option value="ALL">All Applications</option>
+      <option value="PENDING_REVIEW">Pending Review</option>
+      <option value="APPROVED">Approved</option>
+      <option value="REJECTED">Rejected</option>
+    </select>
+  </section>
+
+  <div *ngIf="loading" class="message">Loading applications...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div class="table-container" *ngIf="!loading && !errorMessage">
+    <table>
+      <thead>
+        <tr>
+          <th>APPLICATION ID</th>
+          <th>PURPOSE</th>
+          <th>AMOUNT</th>
+          <th>SUBMITTED ON</th>
+          <th>STATUS</th>
+          <th>DECISION REASON</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let loan of filteredLoans">
+          <td class="loan-id">LN-{{ loan.id }}</td>
+          <td>{{ loan.purpose }}</td>
+          <td class="amount">₹{{ formatAmount(loan.loan_amount) }}</td>
+          <td>{{ loan.created_at | date:'dd MMM yyyy' }}</td>
+
+          <td>
+            <span class="status" [ngClass]="loan.status">
+              {{ loan.status.replace('_', ' ') }}
+            </span>
+          </td>
+
+          <td>{{ loan.decision_reason || '—' }}</td>
+        </tr>
+
+        <tr *ngIf="filteredLoans.length === 0">
+          <td colspan="6" class="empty">
+            No applications found.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="back-button" routerLink="/customer-dashboard">
+    ← Back to Dashboard
+  </button>
+
+</div>

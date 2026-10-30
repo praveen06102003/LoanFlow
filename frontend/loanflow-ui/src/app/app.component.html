@@ -1,0 +1,113 @@
+
+<ng-container *ngIf="!isDashboardRoute && !isApplyLoanRoute && !isMyApplicationsRoute && !isOfficerRoute && !isProfileRoute">
+
+  <div class="login-page">
+    <div class="login-wrapper">
+
+      <!-- Left branding panel -->
+      <section class="brand-panel">
+
+        <div class="brand-logo">
+          <div class="logo-icon">L</div>
+          <span>LoanFlow</span>
+        </div>
+
+        <div class="brand-content">
+          <span class="brand-tag">SMARTER LENDING EXPERIENCE</span>
+
+          <h1>
+            Your financial goals.
+            <span>Our commitment.</span>
+          </h1>
+
+          <p>
+            A simpler way to manage loan applications,
+            track decisions and stay in control of your
+            financial journey.
+          </p>
+
+          <div class="feature-list">
+            <div class="feature">
+              <span>✓</span>
+              Easy loan application
+            </div>
+
+            <div class="feature">
+              <span>✓</span>
+              Real-time application tracking
+            </div>
+
+            <div class="feature">
+              <span>✓</span>
+              Secure account access
+            </div>
+          </div>
+        </div>
+
+        <div class="brand-footer">
+          © 2026 LoanFlow. All rights reserved.
+        </div>
+
+        <div class="decor-circle circle-one"></div>
+        <div class="decor-circle circle-two"></div>
+
+      </section>
+
+      <!-- Right login panel -->
+      <section class="login-panel">
+
+        <div class="login-content">
+
+          <div class="mobile-logo">
+            <div class="logo-icon">L</div>
+            <span>LoanFlow</span>
+          </div>
+
+          <div class="welcome-icon">
+            <span>👋</span>
+          </div>
+
+          <span class="login-tag">WELCOME BACK</span>
+
+          <h2>Sign in to your account</h2>
+
+          <p class="login-description">
+            Access your LoanFlow account and manage
+            your financial journey.
+          </p>
+
+          <div class="signin-section">
+
+            <div class="signin-label">
+              Continue with your Google account
+            </div>
+
+            <div class="google-button-wrapper">
+              <div id="google-button"></div>
+            </div>
+
+            <p class="error" *ngIf="errorMessage">
+              {{ errorMessage }}
+            </p>
+
+            <div class="security-note">
+              <span>🔒</span>
+              Your account is protected with secure Google authentication.
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="login-bottom">
+          By continuing, you agree to use LoanFlow responsibly.
+        </div>
+
+      </section>
+
+    </div>
+  </div>
+
+</ng-container>
+
+<router-outlet></router-outlet>
